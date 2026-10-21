@@ -1,6 +1,12 @@
 name: CI TaskAPI
-on: push: pull_request:
-jobs: test: runs-on: ubuntu-latest
+on: push:
+   branches: [main]
+    pull_request:
+       branches: [main]
+      workflow_dispatch:
+jobs: 
+  test:
+     runs-on: ubuntu-latest
 steps:
   - name: Recuperer le code
     uses: actions/checkout@v4
@@ -8,11 +14,10 @@ steps:
   - name: Installer Node.js
     uses: actions/setup-node@v4
     with:
-      node-version: "22"
-      cache: npm
+      node-version: 22
 
   - name: Installer les dependances
     run: npm ci
 
-  - name: Lancer les tests
+  - name: Executer les tests
     run: npm test
